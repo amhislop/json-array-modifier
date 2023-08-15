@@ -10,11 +10,12 @@ import writeFile from "./lib/utils/writeFile.js";
  * If the boolean value is false, the entire array will be returned.
  * @param {String} fileName The file name for your newly generated file.
  * @param {String} dataType The type of data the user wants to get returned. Accepts either "file" or "json" and returns a file or a JSON string.
+ * @param {String} fileSaveLocation The location where the user would like the file to be saved.
  */
-export default async function newJSONOutput(
+export default function newJSONOutput(
   input,
   additions,
-  random,
+  random = false,
   fileName,
   dataType,
   fileSaveLocation
@@ -29,11 +30,7 @@ export default async function newJSONOutput(
     );
 
     if (dataType === "file") {
-      const write = await writeFile(
-        fileName,
-        transformedData,
-        fileSaveLocation
-      );
+      const write = writeFile(fileName, transformedData, fileSaveLocation);
       console.log(write);
     }
 

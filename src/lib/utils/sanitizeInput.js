@@ -1,6 +1,11 @@
-import isJson from "./validateJSON";
+import isJson from "./validateJSON.js";
 
-export default async function sanitizeInput(input) {
+/**
+ * A function to ensure that the JSON data being passed is valid JSON.
+ * @param {Array||Object} input An array or object containing JSON data.
+ * @returns A valid javascript array or object to work with.
+ */
+export default function sanitizeInput(input) {
   try {
     if (isJson(input)) {
       if (Array.isArray(input)) {

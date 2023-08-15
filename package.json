@@ -12,8 +12,5 @@
   },
   "devDependencies": {
     "prettier": "^3.0.1"
-  },
-  "dependencies": {
-    "moment": "^2.29.4"
   }
 }

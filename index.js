@@ -4,7 +4,7 @@
 
 import build from "./src/main.js";
 
-export default async function newJSONOutput(
+export default function newJSONOutput(
   input,
   additions,
   random,
@@ -12,12 +12,5 @@ export default async function newJSONOutput(
   dataType,
   fileSaveLocation
 ) {
-  return await build(
-    input,
-    additions,
-    random,
-    fileName,
-    dataType,
-    fileSaveLocation
-  );
+  return build(input, additions, random, fileName, dataType, fileSaveLocation);
 }
