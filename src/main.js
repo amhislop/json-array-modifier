@@ -1,4 +1,6 @@
-import build from "./src/main.js";
+import sanitizeData from "./lib/utils/sanitizeInput.js";
+import transformData from "./lib/utils/transformData.js";
+import writeFile from "./lib/utils/writeFile.js";
 
 /**
  * A helper function for developers who need to update a large JSON Array or file by adding additional properties with values.
@@ -15,10 +17,28 @@ import build from "./src/main.js";
 export default function generateNewJsonArray(
   input,
   additions,
-  random,
+  random = false,
   fileName,
   dataType,
   fileSaveLocation
 ) {
-  return build(input, additions, random, fileName, dataType, fileSaveLocation);
+  try {
+    const sanitizedInput = sanitizeData(input);
+    const sanitizedAdditions = sanitizeData(additions);
+    const transformedData = transformData(
+      sanitizedInput,
+      sanitizedAdditions,
+      random
+    );
+
+    if (dataType === "file") {
+      writeFile(fileName, transformedData, fileSaveLocation);
+    }
+
+    if (dataType === "json") {
+      return transformedData;
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

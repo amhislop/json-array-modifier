@@ -1,11 +1,17 @@
 {
-  "name": "updatelargejsonfile",
-  "version": "1.0.0",
-  "description": "A small function to handle updating a json file and outputtin a new one.",
+  "name": "json-array-modifier",
+  "version": "2.0.0",
+  "description": "A small package to help you add additional properties and data to a JSON array and return a JSON file or JSON string.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "type": "module",
+  "scripts": {},
   "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "engines": {
+    "node": "*"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "prettier": "^3.0.1"
+  }
 }
