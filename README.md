@@ -21,9 +21,8 @@ fileSaveLocation - If you wish to create a file, where would you want the file t
 
 This package is only built for use with ESM compatiable projects. Therefore use ESM syntax:<br>
 
-import generateNewJsonArray from "json-array-modifier";
-
-import input from "./mocks/mockInput.json" assert { type: "json" };
-import additions from "./mocks/mockAdditions.json" assert { type: "json" };
+import generateNewJsonArray from "json-array-modifier";<br>
+import input from "./mocks/mockInput.json" assert { type: "json" };<br>
+import additions from "./mocks/mockAdditions.json" assert { type: "json" };<br>
 
 console.log(generateNewJsonArray(input, additions, true, "testNewFile", "file"));
