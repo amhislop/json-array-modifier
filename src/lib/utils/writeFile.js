@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import colors from "colors";
 
 /**
  * A function that uses Nodes FS library to write data to a file.
@@ -6,12 +7,16 @@ import * as fs from "fs";
  * @param {[]Object} fileData The data to write to the file.
  * @param {String} filePath The dir path to save the file.
  */
-export default function writeFile(fileName, fileData, filePath = "../data") {
+export default function writeFile(fileName, fileData, filePath = "./") {
   try {
-    fs.writeFile(`${filePath}/${fileName}.json`, fileData);
-    return "File was successfully created.";
+    fs.writeFile(`${filePath}/${fileName}.json`, fileData, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(colors.rainbow("File was successfully created."));
+      }
+    });
   } catch (error) {
-    console.error(error);
-    return "File failed to create.";
+    console.log(error);
   }
 }

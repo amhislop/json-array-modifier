@@ -15,15 +15,20 @@ export default function transformData(
 ) {
   //Map function to create your new data object
   const transformedData = sanitizedInput.map((obj) => {
-    return sanitizedAdditions.map(([arrName, arrData]) => {
-      const newObj = {
-        ...obj,
-        [arrName]: random
-          ? arrData[randomIntFromInterval(data.length)]
-          : arrData,
-      };
-      return newObj;
+    //create a clone obj
+    const newObj = { ...obj };
+    //loop over each array and then assign new key/value pairs to the newObj
+    //destructure each array to access the name to set as the key in the new obj
+    //destructure data even further to directly access it
+    sanitizedAdditions.forEach(([name, [...data]]) => {
+      let randomNumber = randomIntFromInterval(0, data.length - 1);
+      if (random) {
+        newObj[name] = data[randomNumber];
+      } else {
+        newObj[name] = data;
+      }
     });
+    return newObj;
   });
 
   return JSON.stringify(transformedData);
