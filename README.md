@@ -72,6 +72,8 @@ import modifyJsonArray from "json-array-modifier";
 import input from "./mocks/mockInput.json" assert { type: "json" };
 import additions from "./mocks/mockAdditions.json" assert { type: "json" };
 
+const [modifyJsonAndReturnJson] = modifyJsonArray();
+
 const options = {
   random: true,
   fileName: "newJsonData",
