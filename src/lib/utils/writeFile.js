@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import colors from "colors";
 
 /**
  * A function that uses Nodes FS library to write data to a file.
@@ -9,14 +8,10 @@ import colors from "colors";
  */
 export default function writeFile(fileName, fileData, filePath = "./") {
   try {
-    fs.writeFile(`${filePath}/${fileName}.json`, fileData, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(colors.rainbow("File was successfully created."));
-      }
-    });
+    fs.writeFileSync(`${filePath}/${fileName}.json`, fileData);
+    console.log("File was successfully created.");
   } catch (error) {
     console.log(error);
   }
+  console.log("-----------------------------------------------");
 }

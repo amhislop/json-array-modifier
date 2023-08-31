@@ -1,4 +1,4 @@
-import randomIntFromInterval from "./randomIntFromInterval.js";
+import { randomIntFromInterval } from "./main.js";
 
 /**
  * A function to transform the JSON data array and add whatever additional properties and data you want.

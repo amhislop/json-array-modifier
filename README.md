@@ -13,53 +13,65 @@ There are examples of the JSON data that the function expects under the `/src/li
 ## Documentation
 
 ### Syntax
+
 ```ts
-generateNewJsonArray(input, additions, random, filename, dataType, fileSaveLocation);
+const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] = modifyJsonArray();
+const newJsonArray = modifyJsonAndReturnJson(input, additions, options);
+modifyJsonAndReturnFile(input, additions, options);
 ```
+
 ### Parameters
-`input`  
 
-  This defines the resource of which you wish to modify. This can either be
+`input`
 
-  - A string path to a JSON file
-  - An [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) of objects
+This defines the resource of which you wish to modify. This can either be
+
+- A string path to a JSON file
+- An [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) of objects
 
 `additions`
-  
-  An object containing the keys and values what you wish added to each object.
+
+An object containing the keys and values what you wish added to each object.
+
+`options` (_optional_)
+
+An object containing the following options:
 
 `random` (_optional_)
 
-  A [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) flag that lets you decide if you want to randomise what value is added to each object per property. Default is set to `false`.
-  
-`filename`
+A [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) flag that lets you decide if you want to randomise what value is added to each object per property. Default is set to `false`.
 
-  The name of the file you'd like to create.
+`filename` (_optional_)
 
-`dataType`
-
-  If you would like to create a file or get a JSON string returned. Accepts `file` or `json`.
+The name of the file you'd like to create.
 
 `fileSaveLocation` (_optional_)
 
-  If you wish to create a file, where would you want the file to be created. Default is `./`.
+If you wish to create a file, where would you want the file to be created. Default is `./`.
 
 ### Return value
 
-The return value is dependent on the value of the `dataType` argument passed in. Below are the return values according to their type.
-  - `file` - Void
-  - `json` - An array with the modified objects.
+The return value is dependent on which function you invoke.
+
+- `modifyJsonAndReturnJson` - String of json data.
+- `modifyJsonAndReturnFile` - void. A new file will be created.
 
 ### Example
 
 This package is only built for use with ESM compatiable projects. Therefore use ESM syntax:
 
 ```js
-import generateNewJsonArray from "json-array-modifier";
+import modifyJsonArray from "json-array-modifier";
 import input from "./mocks/mockInput.json" assert { type: "json" };
 import additions from "./mocks/mockAdditions.json" assert { type: "json" };
 
-const newJSON = generateNewJsonArray(input, additions, true, "testNewFile", "file")
+const options = {
+  random: true,
+  fileName: "newJsonData",
+  fileSaveLocation: "../../tmp",
+};
+
+const newJSON = modifyJsonAndReturnJson(input, additions, options);
 
 console.log(newJSON);
 ```

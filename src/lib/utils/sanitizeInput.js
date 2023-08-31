@@ -1,4 +1,4 @@
-import isJson from "./validateJSON.js";
+import { isJson } from "./main.js";
 
 /**
  * A function to ensure that the JSON data being passed is valid JSON.
