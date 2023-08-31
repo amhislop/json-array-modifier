@@ -14,9 +14,16 @@ There are examples of the JSON data that the function expects under the `/src/li
 
 ### Syntax
 
+#### On Client
+
 ```ts
 const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] = modifyJsonArray();
 const newJsonArray = modifyJsonAndReturnJson(input, additions, options);
+```
+
+#### On Server (NodeJs)
+
+```ts
 modifyJsonAndReturnFile(input, additions, options);
 ```
 
