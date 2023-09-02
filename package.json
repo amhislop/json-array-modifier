@@ -10,7 +10,13 @@
   "engines": {
     "node": "*"
   },
+  "bin": {
+    "jam": "./bin/index.js"
+  },
   "devDependencies": {
     "prettier": "^3.0.1"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
   }
 }

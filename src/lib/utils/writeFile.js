@@ -9,9 +9,10 @@ import * as fs from "fs";
 export default function writeFile(fileName, fileData, filePath = "./") {
   try {
     fs.writeFileSync(`${filePath}/${fileName}.json`, fileData);
+    console.log("-----------------------------------------------");
     console.log("File was successfully created.");
+    console.log("-----------------------------------------------");
   } catch (error) {
     console.log(error);
   }
-  console.log("-----------------------------------------------");
 }
