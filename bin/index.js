@@ -1,7 +1,7 @@
-import yargs, { argv } from "yargs";
-
-// import modifyJsonArray from "../index.js";
-// const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] = modifyJsonArray();
+const yargs = require("yargs");
+const modifyJsonArrayImport = require("../index.js");
+const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] =
+  modifyJsonArrayImport();
 
 const usage =
   "Usage: jam -s <source> -d <data> -o <outputType> -r <random> -fn <fileName> -fp <filePath> ";
@@ -54,16 +54,16 @@ const random = argv.r || argv.random;
 const fileName = argv.fn || argv.fileName;
 const filePath = argv.fp || argv.filePath;
 
-// if (outputType === "json") {
-//   const options = { random: random };
-//   modifyJsonAndReturnJson(source, data, options);
-// }
+if (outputType === "json") {
+  const options = { random: random };
+  modifyJsonAndReturnJson(source, data, options);
+}
 
-// if (outputType === "file") {
-//   const options = {
-//     random: random,
-//     fileName: fileName,
-//     fileSaveLocation: filePath,
-//   };
-//   modifyJsonAndReturnFile(source, data, options);
-// }
+if (outputType === "file") {
+  const options = {
+    random: random,
+    fileName: fileName,
+    fileSaveLocation: filePath,
+  };
+  modifyJsonAndReturnFile(source, data, options);
+}
