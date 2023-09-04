@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import meow from "meow";
 import modifyJsonArrayImport from "../index.js";
 const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] =
@@ -22,6 +21,7 @@ const cli = meow(
 
 	Examples
 	  $ jam -s "../src/lib/mocks/input.json" -d "../src/lib/mocks/additions.json" -o "json"
+
 	  JSON ARRAY EXAMPLE HERE
 `,
   {
@@ -80,8 +80,6 @@ const random = cli.unnormalizedFlags.random || cli.unnormalizedFlags.r;
 const fileName = cli.unnormalizedFlags.fileName || cli.unnormalizedFlags.fn;
 const filePath = cli.unnormalizedFlags.filePath || cli.unnormalizedFlags.fp;
 
-console.log(source);
-
 // Determine what the source type is (file or url).
 const grabData = async (string) => {
   if (string.startsWith("http")) {
@@ -105,21 +103,19 @@ const grabData = async (string) => {
 };
 
 // await our new data
-// const sourceData = await grabData(source);
-// const additionalData = await grabData(data);
+const sourceData = await grabData(source);
+const additionalData = await grabData(data);
 
-// console.log({ sourceData });
+if (outputType === "json") {
+  const options = { random: random };
+  modifyJsonAndReturnJson(sourceData, additionalData, options);
+}
 
-// if (outputType === "json") {
-//   const options = { random: random };
-//   modifyJsonAndReturnJson(sourceData, additionalData, options);
-// }
-
-// if (outputType === "file") {
-//   const options = {
-//     random: random,
-//     fileName: fileName,
-//     fileSaveLocation: filePath,
-//   };
-//   modifyJsonAndReturnFile(sourceData, additionalData, options);
-// }
+if (outputType === "file") {
+  const options = {
+    random: random,
+    fileName: fileName,
+    fileSaveLocation: filePath,
+  };
+  modifyJsonAndReturnFile(sourceData, additionalData, options);
+}
