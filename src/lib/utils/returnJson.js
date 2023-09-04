@@ -20,6 +20,7 @@ export default function returnJson(input, additions, options) {
       random
     );
 
+    console.log(transformedData);
     return transformedData;
   } catch (error) {
     console.log(error);

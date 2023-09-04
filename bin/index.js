@@ -5,6 +5,8 @@ import modifyJsonArrayImport from "../index.js";
 const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] =
   modifyJsonArrayImport();
 
+import * as fs from "fs";
+
 const cli = meow(
   `
 	Usage
@@ -71,18 +73,46 @@ const cli = meow(
   }
 );
 
-console.log(cli.input);
+const source = cli.unnormalizedFlags.source || cli.unnormalizedFlags.s;
+const data = cli.unnormalizedFlags.data || cli.unnormalizedFlags.d;
+const outputType = cli.unnormalizedFlags.outputType || cli.unnormalizedFlags.o;
+const random = cli.unnormalizedFlags.random || cli.unnormalizedFlags.r;
+const fileName = cli.unnormalizedFlags.fileName || cli.unnormalizedFlags.fn;
+const filePath = cli.unnormalizedFlags.filePath || cli.unnormalizedFlags.fp;
 
-// const source = cli.input.at(0);
-// const data = cli.input.at(1);
-// const outputType = cli.input.at(2);
-// const random = cli.input.at(3);
-// const fileName = cli.input.at(4);
-// const filePath = cli.input.at(5);
+console.log(source);
+
+// Determine what the source type is (file or url).
+const grabData = async (string) => {
+  if (string.startsWith("http")) {
+    try {
+      const response = await fetch(string);
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
+      // readFileSync returns buffer if no encoding param passed.
+      const data = fs.readFileSync(string, "utf-8");
+      // convert from utf-8 to javascript
+      return JSON.parse(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
+
+// await our new data
+// const sourceData = await grabData(source);
+// const additionalData = await grabData(data);
+
+// console.log({ sourceData });
 
 // if (outputType === "json") {
 //   const options = { random: random };
-//   modifyJsonAndReturnJson(source, data, options);
+//   modifyJsonAndReturnJson(sourceData, additionalData, options);
 // }
 
 // if (outputType === "file") {
@@ -91,5 +121,5 @@ console.log(cli.input);
 //     fileName: fileName,
 //     fileSaveLocation: filePath,
 //   };
-//   modifyJsonAndReturnFile(source, data, options);
+//   modifyJsonAndReturnFile(sourceData, additionalData, options);
 // }
