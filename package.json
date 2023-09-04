@@ -17,6 +17,6 @@
     "prettier": "^3.0.1"
   },
   "dependencies": {
-    "yargs": "^17.7.2"
+    "meow": "^12.1.1"
   }
 }

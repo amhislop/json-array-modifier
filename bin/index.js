@@ -1,69 +1,95 @@
-const yargs = require("yargs");
-const modifyJsonArrayImport = require("../index.js");
+#!/usr/bin/env node
+
+import meow from "meow";
+import modifyJsonArrayImport from "../index.js";
 const [modifyJsonAndReturnJson, modifyJsonAndReturnFile] =
   modifyJsonArrayImport();
 
-const usage =
-  "Usage: jam -s <source> -d <data> -o <outputType> -r <random> -fn <fileName> -fp <filePath> ";
+const cli = meow(
+  `
+	Usage
+	  $ jam -s <source> -d <data> -o <outputType> -r <random> -fn <fileName> -fp <filePath> 
 
-const options = yargs
-  .usage(usage)
-  .option("s", {
-    alias: "source",
-    describe:
-      "The source of JSON data that you want to modify. As a url or a dir pathway.",
-    type: "string",
-    demandOption: true,
-  })
-  .option("d", {
-    alias: "data",
-    describe: "The data you wish to add to each object within the array.",
-    type: "string",
-    demandOption: true,
-  })
-  .option("o", {
-    alias: "outputType",
-    describe: "Do you want JSON or a file returned.",
-    type: "string",
-    demandOption: true,
-  })
-  .option("r", {
-    alias: "random",
-    describe: "Randomise what data is appeended to each object.",
-    type: "string",
-    demandOption: false,
-  })
-  .option("fn", {
-    alias: "fileName",
-    describe: "If you are creating a new JSON file, name the file.",
-    type: "string",
-    demandOption: false,
-  })
-  .option("fp", {
-    alias: "filePath",
-    describe: "Choose where to create your new JSON file.",
-    type: "string",
-    demandOption: false,
-  })
-  .help(true).argv;
+	Options
+	  --source, -s  Original source of data.
+    --data, -s Data you want to add.
+    --outputType -o Do you want json returned or a new .json file created? Accepts "json" & "file".
+    --random, -r Do you want to randomise what data is added?
+    --fileName, -fn, If you're creating a new file, choose a name. 
+    --filePath, -fp, Enter a filepath where you'd like to create your file. Default is './'. 
 
-const source = argv.s || argv.source;
-const data = argv.d || argv.data;
-const outputType = argv.o || argv.outputType;
-const random = argv.r || argv.random;
-const fileName = argv.fn || argv.fileName;
-const filePath = argv.fp || argv.filePath;
+	Examples
+	  $ jam -s "../src/lib/mocks/input.json" -d "../src/lib/mocks/additions.json" -o "json"
+	  JSON ARRAY EXAMPLE HERE
+`,
+  {
+    importMeta: import.meta,
+    flags: {
+      source: {
+        type: "string",
+        shortFlag: "s",
+        isRequired: (flags, input) => {
+          if (flags.otherFlag) {
+            return true;
+          }
+          return false;
+        },
+      },
+      data: {
+        type: "string",
+        shortFlag: "d",
+        isRequired: (flags, input) => {
+          if (flags.otherFlag) {
+            return true;
+          }
+          return false;
+        },
+      },
+      outputType: {
+        type: "string",
+        shortFlag: "o",
+        isRequired: (flags, input) => {
+          if (flags.otherFlag) {
+            return true;
+          }
+          return false;
+        },
+      },
+      random: {
+        type: "string",
+        shortFlag: "r",
+      },
+      fileName: {
+        type: "string",
+        shortFlag: "fn",
+      },
+      filePath: {
+        type: "string",
+        shortFlag: "fp",
+      },
+    },
+  }
+);
 
-if (outputType === "json") {
-  const options = { random: random };
-  modifyJsonAndReturnJson(source, data, options);
-}
+console.log(cli.input);
 
-if (outputType === "file") {
-  const options = {
-    random: random,
-    fileName: fileName,
-    fileSaveLocation: filePath,
-  };
-  modifyJsonAndReturnFile(source, data, options);
-}
+// const source = cli.input.at(0);
+// const data = cli.input.at(1);
+// const outputType = cli.input.at(2);
+// const random = cli.input.at(3);
+// const fileName = cli.input.at(4);
+// const filePath = cli.input.at(5);
+
+// if (outputType === "json") {
+//   const options = { random: random };
+//   modifyJsonAndReturnJson(source, data, options);
+// }
+
+// if (outputType === "file") {
+//   const options = {
+//     random: random,
+//     fileName: fileName,
+//     fileSaveLocation: filePath,
+//   };
+//   modifyJsonAndReturnFile(source, data, options);
+// }
